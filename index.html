@@ -4,7 +4,7 @@
     <base target="_top">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/128/16167/16167341.png">
@@ -13,21 +13,49 @@
     <title>MCH-Emanu Pos</title>
 
     <style>
-        /* ล้างค่าขอบของเบราว์เซอร์ และล็อกหน้าจอไม่ให้ขยับ/เลื่อน */
+        /* ล้างค่าขอบ และล็อกหน้าจอไม่ให้เลื่อน */
         html, body {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
             overflow: hidden;
+            background-color: #111;
+        }
+
+        /* กล่องครอบสำหรับซ่อนแถบเทาด้านบน */
+        .iframe-wrapper {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* ดึงไอเฟรมขึ้นไปซ่อนแถบเทาด้านบน และขยายความสูงชดเชย */
+        .iframe-wrapper iframe {
+            width: 100%;
+            height: calc(100% + 50px); 
+            margin-top: -50px; 
+            border: none;
+            display: block;
         }
     </style>
 </head>
 <body>
-    <iframe style="width: 100%; height: 100%; border: none; display: block;" 
-            scrolling="yes" 
-            src="https://script.google.com/macros/s/AKfycbxCJRAA4qVRbXqkTK1_65pzXkqQogLJt3PhFtZ2H2ILP3jaRRa1qHGEsnaO-w7C4__wNQ/exec" 
-            allowfullscreen 
-            loading="lazy"></iframe>
+    <div class="iframe-wrapper">
+        <!-- ไอเฟรมที่จะเปลี่ยน URL ตามพารามิเตอร์อัตโนมัติ -->
+        <iframe id="app-iframe" scrolling="yes" allowfullscreen loading="lazy"></iframe>
+    </div>
+
+    <script>
+        // 1. ลิงก์ Web App หลักของ Google Apps Script คุณ
+        var baseGasUrl = "https://script.google.com/macros/s/AKfycbxCJRAA4qVRbXqkTK1_65pzXkqQogLJt3PhFtZ2H2ILP3jaRRa1qHGEsnaO-w7C4__wNQ/exec";
+
+        // 2. ดึงค่า Query Parameters ปัจจุบันของ GitHub Pages (เช่น ?page=staff หรือ ?table=A1)
+        var queryString = window.location.search;
+
+        // 3. ประกอบร่างและยัดใส่ src ของ iframe เพื่อส่งต่อให้ฟังก์ชัน doGet(e) ของ Apps Script จัดการต่อ
+        document.getElementById('app-iframe').src = baseGasUrl + queryString;
+    </script>
 </body>
 </html>
