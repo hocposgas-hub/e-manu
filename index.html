@@ -20,10 +20,10 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            background-color: #111;
+            background-color: #ffffff;
         }
 
-        /* กล่องครอบสำหรับซ่อนแถบเทาด้านบน */
+        /* กล่องครอบสำหรับซ่อนแถบเทาด้านบนของ Google Apps Script */
         .iframe-wrapper {
             width: 100%;
             height: 100%;
@@ -31,11 +31,11 @@
             position: relative;
         }
 
-        /* ดึงไอเฟรมขึ้นไปซ่อนแถบเทาด้านบน และขยายความสูงชดเชย */
+        /* ปรับระยะดึงขึ้นไปเฉพาะพอดีซ่อนแถบเทา (ประมาณ 40px) และขยายความสูงลงล่าง */
         .iframe-wrapper iframe {
             width: 100%;
-            height: calc(100% + 50px); 
-            margin-top: -50px; 
+            height: calc(100% + 40px); 
+            margin-top: -40px; 
             border: none;
             display: block;
         }
